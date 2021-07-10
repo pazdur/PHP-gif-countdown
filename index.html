@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Generator Odliczania</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+        <style>
+            * {
+                box-sizing: border-box;
+                font-family: 'Lato', sans-serif;
+            }
+
+            html,
+            body {
+                padding: 0;
+                margin: 0;
+                background-image: url('img/bg.png');
+                background-position: center center;
+            }
+
+            input {
+                border-radius: 0;
+                -webkit-appearance: none;
+            }
+
+            .wrapper{
+                width: 100%;
+                max-width: 800px;
+                min-width: 280px;
+                background-color: #fff;
+                margin: 0 auto;
+            }
+
+            .logoContainer{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 40px;
+            }
+
+            .logo{
+                width: 100%;
+                max-width: 125px;
+            }
+
+            .container{
+                width: 100%;
+                padding: 20px;
+            }
+            
+            .content{
+                position: relative;
+                width: 100%;
+                padding: 20px;
+                border: 1px solid #D1D1D1;
+            }
+
+            .title{
+                margin: 0;
+                padding: 0;
+                font-size: 32px;
+                line-height: 32px;
+                color: #3C3C3B;
+                font-weight: 900;
+                text-transform: uppercase;
+                white-space: nowrap;
+                letter-spacing: 0.5px;
+            }
+
+            .titleContainer{
+                position: absolute;
+                left: 50%;
+                top: -16px;
+                background-color: #fff;
+                padding: 0px 20px;
+                transform: translateX(-50%);
+                text-align: center;
+                height: 32px;
+            }
+
+            .optionsContainer{
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: flex-start;
+                margin-top: 40px;
+            }
+
+            .column {
+                width: 33.33%;
+                padding: 0px 10px;
+            }
+
+            .groupInput{
+                width: 100%;
+                position: relative;
+                margin-bottom: 25px;
+            }
+
+            .input-style{
+                width: 100%;
+                border: 0;
+                outline: none;
+                margin: 0;
+                height: 35px;
+                padding: 10px;
+                font-size: 14px;
+                line-height: 14px;
+                font-weight: 400;
+                color: #1a1a1a;
+                border: 1px solid #D1D1D1;
+                transition: border-bottom 0.25s;
+            } 
+
+            .input-style > select {
+                padding: 0;
+            }
+
+            .fill-input{
+                font-size: 14px;
+                font-weight: 400;
+                position: absolute;
+                left: 10px;
+                transform: translateY(10px);
+                cursor: text;
+                transition: font-size 0.25s, transform 0.25s, color 0.25s;
+            }
+
+            .focus-input{
+                left: 0px;
+                font-size: 12px;
+                transform: translateY(-100%);
+                color: #3C3C3B;
+                font-weight: 600;
+            }
+
+            .color-picker{
+                padding: 0;
+                background-color: transparent;
+                cursor: pointer;
+            }
+
+            .dropdown {
+                cursor: pointer;
+                padding: 0px 10px !important;
+            }
+
+            .codeContainer{
+                margin-top: 20px;
+                position: relative;
+                width: 100%;
+                border: 1px solid #D1D1D1;
+            }
+
+            .box{
+                position: absolute;
+                left: 10px;
+                transform: translateY(-50%);
+                padding: 0px 10px;
+                background-color: #fff;
+            }
+
+            .nameBox{
+                margin: 0;
+                padding: 0;
+                font-size: 24px;
+            }
+
+            .codeBox{
+                width: 100%;
+                padding: 40px 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #code{
+                border: 0;
+                outline: 0;
+                background-color: #fff;
+                color: #3C3C3B;
+                font-size: 16px;
+                text-align: center;
+                font-weight: 600;
+                width: 100%;
+                word-break: break-all;
+                overflow: hidden;
+                resize: none;
+            }
+
+
+            .previewContainer{
+                margin-top: 40px;
+                position: relative;
+                width: 100%;
+                border: 1px solid #D1D1D1;
+            }
+
+            .previewBox{
+                padding: 40px 0px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            #previewIMG{
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                padding: 0px 20px;
+            }
+
+            .buttonContainer{
+                width: 100%;
+                padding: 10px 0px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 30px;
+            }
+
+            .button {
+                width: 100%;
+                max-width: 200px;
+                height: 45px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 600;
+                text-transform: uppercase;
+                cursor: pointer;
+                background-color: #CADDA2;
+                text-align: center;
+                letter-spacing: 0.5px;
+                transition: 0.5s;
+            }
+
+            .buttonContainer > .column {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #copyButton{
+                background-color: #CADDA2;
+            }
+
+            #resetButton {
+                background-color: #ff7675;
+            }
+
+            #saveButton{
+                background-color:  #CADDA2;
+            }
+
+            #resetButton:hover{
+                background-color: #eb4d4b;
+            }
+
+            #saveButton:hover,
+            #copyButton:hover{
+                background-color: #badc58;
+            }
+
+            .disabled{
+                background-color: #D1D1D1;
+            }
+
+            @media screen and (max-width: 710px){
+                .optionsContainer{
+                    flex-direction: column;
+                    align-items: center;
+                }
+                .column{
+                    width: 100%
+                }
+
+                .button {
+                    max-width: 100%;
+                    font-size: 14px;
+                }
+
+                .buttonContainer {
+                    flex-direction: column;
+                }
+
+                .buttonContainer > .column{
+                    margin-bottom: 20px;
+                }
+
+                .buttonContainer > .column:last-child{
+                    margin-bottom: 0px;
+                }
+
+            }
+
+            @media screen and (max-width: 490px){
+                .title{
+                    font-size: 24px;
+                }
+
+                .nameBox{
+                    font-size: 18px;
+                }
+            }
+
+            @media screen and (max-width: 400px){
+                .title{
+                    font-size: 18px;
+                }
+
+                .nameBox{
+                    font-size: 16px;
+                }
+            }
+
+            @media screen and (max-width: 319px){
+                .title{
+                    font-size: 16px;
+                }
+            }
+
+            @media screen and (max-width: 289px){
+                .focus-input {
+                    font-size: 11px;
+                }
+            }
+        </style>
+        <style>
+            /* Alert */
+            .alert {
+                padding: 20px;
+                height: auto;
+                color: white;
+            }
+        
+            .ok {
+                background-color: #badc58;
+            }
+        
+            .error {
+                background-color: #eb4d4b;
+            }
+        
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 24px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+        
+            .closebtn:hover {
+                color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="container">
+                <div class="logoContainer">
+                    <img src="img/logo.png" class="logo">
+                </div>
+                <div class="content">
+                    <div class="titleContainer">
+                        <h1 class='title'>Generator Odliczania</h1>
+                    </div>
+                    <div class="optionsContainer">
+                        <div class="column">
+                            <div class="groupInput">
+                                <label for="size-timer" class="fill-input focus-input">Wielkość czcionki - timer</label>
+                                <input type="text" id="font-size-timer" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <label for="size-name" class="fill-input focus-input">Wielkość czcionki - nazwy czasu</label>
+                                <input type="text" id="font-size-name" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <label for="padding-timer" class="fill-input focus-input">Padding tekstu</label>
+                                <input type="text" id="padding-timer" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <label for="padding-top-name" class="fill-input focus-input">Padding górny - nazwy czasu</label>
+                                <input type="text" id="padding-top-name" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <label for="name-days" class="fill-input focus-input">Nazwa pola - dzień</label>
+                                <input type="text" id="name-days" class="input-style" >
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="groupInput">
+                                <label for="name-hours" class="fill-input focus-input">Nazwa pola - godziny</label>
+                                <input type="text" id="name-hours" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <label for="name-minutes" class="fill-input focus-input">Nazwa pola - minuty</label>
+                                <input type="text" id="name-minutes" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <label for="name-seconds" class="fill-input focus-input">Nazwa pola - sekundy</label>
+                                <input type="text" id="name-seconds" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <label for="background-color" class="fill-input focus-input">Kolor tła</label>
+                                <input type="color" id="background-color" value="#000000" class="input-style color-picker">
+                            </div>
+                            <div class="groupInput">
+                                <label for="timer-color" class="fill-input focus-input">Kolor tekstu - timer</label>
+                                <input type="color" id="timer-color" value="#ffffff" class="input-style color-picker">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="groupInput">
+                                <label for="name-color" class="fill-input focus-input">Kolor tekstu - nazwy czasu</label>
+                                <input type="color" id="name-color" value="#ffffff" class="input-style color-picker">
+                            </div>
+                            <div class="groupInput">
+                                <label for="template" class="fill-input focus-input">Szablon</label>
+                                <select id="template" class="input-style dropdown">
+                                    <option value="default" select>Default</option>
+                                    <option value="dotted">Dotted</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="groupInput">
+                                <label for="size-timer" class="fill-input focus-input">Wielkość Timera</label>
+                                <select id="size-timer" class="input-style dropdown">
+                                    <option value="large" select>Large</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="small">Small</option>
+                                </select>
+                            </div>
+                            <div class="groupInput">
+                                <label for="set-date" class="fill-input focus-input">Data do kiedy odliczać (max 30 dni)</label>
+                                <input type="date" id="set-date" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <label for="set-time" class="fill-input focus-input">Czas do kiedy odliczać (max 30 dni)</label>
+                                <input type="time" id="set-time" step="1" class="input-style" >
+                            </div>
+                            <div class="groupInput">
+                                <input type="hidden" id="full-date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttonContainer">
+                        <div class="column">
+                            <div id="copyButton" class='button'>Skopiuj kod</div>
+                        </div>
+                        <div class="column">
+                            <div id="resetButton" class='button'>Resetuj</div>
+                        </div>
+                    </div>
+                    <div class="codeContainer">
+                        <div class="box">
+                            <h3 class='nameBox'>Kod</h3>
+                        </div>
+                        <div class="codeBox">
+                            <textarea id="code" value="localhost/"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="previewContainer">
+                        <div class="box">
+                            <h3 class='nameBox'>Podgląd</h3>
+                        </div>
+                        <div class="previewBox">
+                            <img src="" id="previewIMG">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script>
+            var url = new URL(location.href);
+            let date_to_countdown, timer;
+            let font_size_timer = document.getElementById('font-size-timer');
+            let font_size_name = document.getElementById('font-size-name');
+            let padding_timer = document.getElementById('padding-timer');
+            let padding_top_timer = document.getElementById('padding-top-name');
+            let name_days = document.getElementById('name-days');
+            let name_hours = document.getElementById('name-hours');
+            let name_minutes = document.getElementById('name-minutes');
+            let name_seconds = document.getElementById('name-seconds');
+            let background_color = document.getElementById('background-color');
+            let timer_color = document.getElementById('timer-color');
+            let size_timer = document.getElementById('size-timer');
+            let name_color = document.getElementById('name-color');
+            let template = document.getElementById('template');
+            let get_date = document.getElementById('set-date');
+            let get_time = document.getElementById('set-time');
+            let fullDate = document.getElementById('full-date');
+            let input = document.getElementsByClassName('input-style');
+            let getImg = document.getElementById("previewIMG");
+            let getCode = document.getElementById("code");
+            let copyButton = document.getElementById('copyButton');
+            let resetButton = document.getElementById('resetButton');
+            let created = false;
+
+            copyButton.addEventListener('click', function(){
+                getCode.focus();
+                getCode.select();
+                document.execCommand('copy');
+                document.getSelection().removeAllRanges()
+                showAlert('ok', 'Skopiowano kod do schowka');
+            });
+
+            getCode.addEventListener('change', function(){
+                getImg.src= getCode.value;
+            });
+
+            function mergeDate(date, time){
+                let getFullDate = '';
+                String(date).split("-").forEach(value => {
+                    getFullDate += value + '-';
+                });
+
+                String(time).split(":").forEach(value => {
+                    getFullDate += value + '-';
+                });
+                
+                getFullDate = getFullDate.endsWith('-') ? getFullDate.substr(0,(getFullDate.length-1)) : getFullDate;
+                fullDate.setAttribute('value', getFullDate);
+            }
+
+            function setDefaultDate(){
+                let today = new Date();
+                today.setDate(today.getDate() + 7);
+                let getHour = today.getHours()<10 ? '0' + today.getHours() : today.getHours();
+                let getMinute = today.getMinutes() < 10 ? '0' + today.getMinutes() : today.getMinutes();
+                let getSecond = today.getSeconds() < 10 ? '0' + today.getSeconds() : today.getSeconds();
+
+                let default_date = today.toISOString().split('T')[0];
+                let default_time = getHour + ':' + getMinute + ':' + getSecond;
+
+                get_date.setAttribute('value', default_date);
+                get_time.setAttribute('value', default_time);
+                mergeDate(default_date, default_time);
+            }
+
+            function setMaxDate(maxDays) {
+                let min, max;
+
+                let today = new Date();
+                let maxDate = new Date();
+                maxDate.setDate(maxDate.getDate() + maxDays);
+
+                min = today.toISOString().split('T')[0];
+                max = maxDate.toISOString().split('T')[0];
+
+                get_date.setAttribute('min', min);
+                get_date.setAttribute('max', max);
+            }
+
+            function updateGet(){
+                let options = {
+                    'date_to_countdown': fullDate.value,
+                    'font_size_timer': font_size_timer.value,
+                    'font_size_name': font_size_name.value,
+                    'padding': padding_timer.value,
+                    'padding_top_name': padding_top_timer.value,
+                    'name_days': name_days.value,
+                    'name_minutes': name_minutes.value,
+                    'name_hours': name_hours.value,
+                    'name_seconds': name_seconds.value,
+                    'background_color': background_color.value.substr(1),
+                    'timer_color': timer_color.value.substr(1),
+                    'name_color': name_color.value.substr(1),
+                    'template': template.value
+                }
+                url.search = '';
+                for (const [key, value] of Object.entries(options)) {
+                    url.searchParams.append(key, value); 
+                }
+                getCode.innerText = location.href+ 'php/'+ 'timer.php' + url.search;
+                getImg.src = location.href+ 'php/' + 'timer.php' + url.search;
+            }
+
+            function updateTemplate(){
+                switch(template.value){
+                    case 'default':
+                        font_size_timer.className += ' disabled';
+                        font_size_timer.setAttribute('disabled', '');
+                        
+                        font_size_name.className += ' disabled';
+                        font_size_name.setAttribute('disabled', '');
+                       
+                        padding_timer.className += ' disabled';
+                        padding_timer.setAttribute('disabled', '');
+                       
+                        padding_top_timer.className += ' disabled';
+                        padding_top_timer.setAttribute('disabled', '');
+                        
+                        padding_top_timer.className += ' disabled';
+                        padding_top_timer.setAttribute('disabled', '');
+                       
+                        padding_top_timer.className += ' disabled';
+                        padding_top_timer.setAttribute('disabled', '');
+                        
+                        name_days.className = 'input-style';
+                        name_days.removeAttribute('disabled');
+
+                        name_hours.className = 'input-style';
+                        name_hours.removeAttribute('disabled');
+
+                        name_minutes.className = 'input-style';
+                        name_minutes.removeAttribute('disabled');
+
+                        name_seconds.className = 'input-style';
+                        name_seconds.removeAttribute('disabled');
+
+                        name_color.className = 'input-style color-picker';
+                        name_color.removeAttribute('disabled');
+
+                        size_timer.className = 'input-style dropdown';
+                        size_timer.removeAttribute('disabled');
+
+                        switch(size_timer.value){
+                            case 'large':
+                                font_size_timer.value = 100;
+                                font_size_name .value= 20;
+                                padding_timer.value = 40;
+                                padding_top_timer.value = 20;
+                            break;
+
+                            case 'medium':
+                                font_size_timer.value = 64;
+                                font_size_name.value = 15;
+                                padding_timer.value = 25;
+                                padding_top_timer.value = 15;
+                            break;
+
+                            case 'small':
+                                font_size_timer.value = 32;
+                                font_size_name.value = 10;
+                                padding_timer.value = 20;
+                                padding_top_timer.value = 10;
+                            break;
+                        }
+                    break;
+
+                    case 'dotted':
+                        font_size_timer.className = 'input-style';
+                        font_size_timer.removeAttribute('disabled');
+                        
+                        padding_timer.className = 'input-style';
+                        padding_timer.removeAttribute('disabled');
+                       
+                        padding_top_timer.className += ' disabled';
+                        padding_top_timer.setAttribute('disabled', '');
+                       
+                        name_days.className += ' disabled';
+                        name_days.setAttribute('disabled', '');
+                        
+                        name_hours.className += ' disabled';
+                        name_hours.setAttribute('disabled', '');
+                        
+                        name_minutes.className += ' disabled';
+                        name_minutes.setAttribute('disabled', '');
+                        
+                        name_seconds.className += ' disabled';
+                        name_seconds.setAttribute('disabled', '');
+
+                        name_color.className += ' disabled';
+                        name_color.setAttribute('disabled', '');
+
+                        size_timer.className += ' disabled';
+                        size_timer.setAttribute('disabled', '');
+                    break;
+
+                    case 'custom':
+                        font_size_timer.className = 'input-style';
+                        font_size_timer.removeAttribute('disabled');
+
+                        font_size_name.className = 'input-style';
+                        font_size_name.removeAttribute('disabled');
+
+                        padding_timer.className = 'input-style';
+                        padding_timer.removeAttribute('disabled');
+
+                        padding_top_timer.className = 'input-style';;
+                        padding_top_timer.removeAttribute('disabled');
+
+                        padding_top_timer.className = 'input-style';
+                        padding_top_timer.removeAttribute('disabled');
+
+                        padding_top_timer.className = 'input-style';
+                        padding_top_timer.removeAttribute('disabled');
+
+                        name_days.className = 'input-style';
+                        name_days.removeAttribute('disabled');
+
+                        name_hours.className = 'input-style';
+                        name_hours.removeAttribute('disabled');
+
+                        name_minutes.className = 'input-style';
+                        name_minutes.removeAttribute('disabled');
+
+                        name_seconds.className = 'input-style';
+                        name_seconds.removeAttribute('disabled');
+
+                        name_color.className = 'input-style color-picker';
+                        name_color.removeAttribute('disabled');
+
+                        size_timer.className += ' disabled';
+                        size_timer.setAttribute('disabled', '');
+                    break;
+                }
+            }
+
+            for(let i = 0; i < input.length; i++){
+                input[i].addEventListener('change', function(){
+                    switch(this.id){
+
+                        case 'font-size-timer':
+                            validateField(font_size_timer, 100);
+                        break;
+
+                        case 'font-size-name':
+                            validateField(font_size_name, 100/2);
+                        break;
+
+                        case 'padding-timer':
+                            validateField(padding_timer, 100);
+                        break;
+
+                        case 'padding-top-name':
+                            validateField(padding_top_timer, 100);
+                        break;
+
+                        case 'set-date':
+                            if(this.value != '' && get_time.value != '') mergeDate(this.value, get_time.value);
+                        break;
+
+                        case 'set-time':
+                            if (this.value != '' && get_date.value != '') mergeDate(get_date.value, this.value);
+                        break;
+
+                        case 'template':
+                            size_timer.selectedIndex = 0;
+                            updateTemplate();
+                        break;
+
+                        case 'size-timer':
+                            updateTemplate();
+                        break;
+                    }
+                    updateGet()
+                });
+            }
+
+            function reset(){
+                font_size_timer.value = "";
+                font_size_name.value = "";
+                padding_timer.value = "";
+                padding_top_timer.value = "";
+                name_days.value = "";
+                name_hours.value = "";
+                name_minutes.value = "";
+                name_seconds.value = "";
+                background_color.value = background_color.defaultValue;
+                timer_color.value = timer_color.defaultValue;;
+                size_timer.setAttribute("value", "large");
+                size_timer.selectedIndex = 0;
+                name_color.value = name_color.defaultValue;;
+                template.setAttribute("value", "default");
+                template.selectedIndex = 0;
+                loadCountDown()
+                showAlert('ok', 'Zrestartowano ustawienia timera');
+            }
+
+            function showAlert(type, text){
+                let div;
+                removeAlert()
+                switch(type){
+                    case 'ok':
+                        div = document.createElement('div');
+                        div.id = 'alert';
+                        div.className = 'alert ok';
+                        div.style.position = 'fixed';
+                        div.style.zIndex = '999';
+                        div.style.left = '50%';
+                        div.style.top = '0';
+                        div.style.transform = 'translateX(-50%)';
+                        div.style.width = '100%';
+                        div.style.maxWidth = '800px';
+                        div.innerHTML = '<span class="closebtn" onclick="removeAlert();">&times;</span> <strong>Suckes! </strong> ' + text;
+                        document.body.appendChild(div);
+                        timer = setTimeout(() => {
+                            document.getElementById('alert').parentElement.removeChild(document.getElementById('alert'));
+                        }, 10000);
+                    break;
+
+                    case 'error':
+                        div = document.createElement('div');
+                        div.id = 'alert';
+                        div.className = 'alert error';
+                        div.style.position = 'fixed';
+                        div.style.zIndex = '999';
+                        div.style.left = '50%';
+                        div.style.top = '0';
+                        div.style.transform = 'translateX(-50%)';
+                        div.style.width = '100%';
+                        div.style.maxWidth = '800px';
+                        div.innerHTML = '<span class="closebtn" onclick="removeAlert();">&times;</span> <strong>Error! </strong>' + text;
+                        document.body.appendChild(div);
+                        timer = setTimeout(() => {
+                            document.getElementById('alert').parentElement.removeChild(document.getElementById('alert'));
+                        }, 10000);
+                    break;
+                }
+            }
+
+            function removeAlert(){
+                if(document.getElementById('alert')){
+                    document.getElementById('alert').parentElement.removeChild(document.getElementById('alert'));
+                    clearTimeout(timer);
+                }
+            }
+
+
+            function validateField(el, max){
+                const reg = new RegExp('^[0-9]+$');
+                let result = reg.test(el.value);
+                if(!result){
+                    el.value = '';
+                    updateGet()
+                    showAlert('error', 'Wartością tego pola, mogą być tylko liczby'); 
+                } else {
+                    result = Number(result);
+                    if(el.value > max){
+                        el.value = '';
+                        updateGet()
+                        showAlert('error', 'Wartość tego pola nie może być większa niż ' + max);
+                    } else {
+                        return true;
+                    }
+                }
+            }
+
+            function loadCountDown(){
+                updateTemplate();
+                setMaxDate(30);
+                setDefaultDate()
+                updateGet()
+            }
+
+            window.addEventListener('DOMContentLoaded', loadCountDown);
+            resetButton.addEventListener('click', reset);
+
+        </script>
+    </body>
+</html>
